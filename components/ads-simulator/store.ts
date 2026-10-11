@@ -135,7 +135,7 @@ export function restoreBackup(value: unknown): SimState {
     return typeof item === typeof template;
   };
   const c = candidate.campaign;
-  if (state.student && !matches(state.student, { name: "", rollNumber: "" })) throw new Error("Invalid student details");
+  if (state.student && !matches(state.student, { name: "" })) throw new Error("Invalid student details");
   const template = { ...base.campaign,
     adGroups: [{ ...emptyAdGroup(), keywords: [{ id: "", text: "", match: "" }] }],
     negativeKeywords: [{ id: "", text: "", match: "" }],

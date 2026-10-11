@@ -1608,11 +1608,10 @@ function StepReview({ onNavigate }: { onNavigate: Navigate }) {
     </Card>
     <Card title="Student details and submission" hint={`Generate your complete HTML report and email it to ${SUBMISSION_EMAIL}.`}>
       <div className="gads-row">
-        <Field label="Student name" validationKey="studentName"><TextInput value={state.student?.name || ""} maxLength={100} onChange={name => patch({ student: { name, rollNumber: state.student?.rollNumber || "" } })} /></Field>
-        <Field label="Roll number" validationKey="rollNumber"><TextInput value={state.student?.rollNumber || ""} maxLength={50} onChange={rollNumber => patch({ student: { name: state.student?.name || "" , rollNumber } })} /></Field>
+        <Field label="Student name" validationKey="studentName"><TextInput value={state.student?.name || ""} maxLength={100} onChange={name => patch({ student: { name } })} /></Field>
       </div>
       <FieldError name="reportReady" />
-      <Field label="Campaign rationale (optional)"><TextArea value={state.rationale || ""} rows={5} onChange={rationale => patch({ rationale })} /></Field>
+      <Field label="Campaign rationale — one labelled reason for B0–B9" validationKey="rationale"><TextArea value={state.rationale || ""} rows={10} onChange={rationale => patch({ rationale })} /></Field>
       <Field label="Twist notes (optional)"><TextArea value={state.twistNotes || ""} rows={4} onChange={twistNotes => patch({ twistNotes })} /></Field>
       <p className="gads-help">The HTML file contains your entire campaign setup and opens in a browser. After generating it, use Email submission to open a draft email. Attach the downloaded HTML file before sending.</p>
     </Card>

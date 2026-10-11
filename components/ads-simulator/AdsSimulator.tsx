@@ -22,6 +22,7 @@ import ExamPanel from "./ExamPanel";
 import Campaigns from "./screens/Campaigns";
 import { downloadCampaign, type BuildSection } from "./flow";
 import { examRestrictions } from "./examRestrictions";
+import { ExamWatermark, ExamPrivacyShield, useExamPrivacy } from "./ExamProtection";
 
 type Screen = "campaigns" | "build" | "planner" | "conversions" | "guide";
 
@@ -33,6 +34,7 @@ export default function AdsSimulator() {
   const [step, setStep] = useState(0);
   const [section, setSection] = useState<BuildSection>("keywords");
   const [saved, setSaved] = useState(true);
+  const privacy = useExamPrivacy(screen === "guide", mounted && unlocked);
 
   // Hydrate from localStorage after mount to avoid SSR mismatch.
   useEffect(() => {
@@ -112,7 +114,9 @@ export default function AdsSimulator() {
 
   return (
     <SimContext.Provider value={{ state, setState, patch, patchCampaign, reset }}>
-      <div className="gads" {...examRestrictions}>
+      <div className={`gads ${privacy.hidden ? "gads-screen-shielded" : ""}`} {...examRestrictions}>
+        <ExamWatermark name={state.student?.name} accountId={state.accountId} />
+        {privacy.hidden && <ExamPrivacyShield onResume={privacy.resume} />}
         <TopBar
           state={state}
           onNavigate={navigate}

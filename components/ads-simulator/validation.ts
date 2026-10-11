@@ -9,6 +9,11 @@ export interface ValidationIssue { field: string; message: string; step: number;
 export const validMoney = (value: string) => /^\d+(\.\d{1,2})?$/.test(value.trim()) && Number.isFinite(Number(value)) && Number(value) > 0;
 export const validPhone = (value: string) => /^[+\d\s()-]+$/.test(value) && value.replace(/\D/g, "").length >= 10 && value.replace(/\D/g, "").length <= 15;
 
+export function missingRationaleRows(value = ""): string[] {
+  const present = new Set(Array.from(value.matchAll(/^\s*(B[0-9])\s*[:\-–—]\s*\S+/gmi), match => match[1].toUpperCase()));
+  return Array.from({ length: 10 }, (_, i) => `B${i}`).filter(row => !present.has(row));
+}
+
 export function campaignIssues(state: SimState): ValidationIssue[] {
   const c = state.campaign;
   const errors: ValidationIssue[] = [];
@@ -62,7 +67,8 @@ export function campaignIssues(state: SimState): ValidationIssue[] {
   if (c.image.enabled && !c.image.dataUrl) add("image", "Upload an image or turn off the optional image asset.", 3, "assets");
   if (!validMoney(c.budgetDaily)) add("budgetDaily", "Enter a daily budget greater than 0, with at most 2 decimal places.", 4);
   if (!state.student?.name.trim() || state.student.name.length > 100) add("studentName", "Enter your name (1–100 characters).", 5);
-  if (!state.student?.rollNumber.trim() || state.student.rollNumber.length > 50) add("rollNumber", "Enter your roll number (1–50 characters).", 5);
+  const missingReasons = missingRationaleRows(state.rationale);
+  if (missingReasons.length) add("rationale", `Add a separate labelled reason for ${missingReasons.join(", ")}.`, 5);
   if (state.conversionDraft) add("reportReady", "Save or cancel the unfinished conversion action before generating your report.", 5);
   return errors;
 }

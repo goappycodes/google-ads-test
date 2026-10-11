@@ -153,7 +153,7 @@ export interface SimState {
   buildSection?: "keywords" | "ads" | "assets";
   planner?: { seedsText: string; geo: "siliguri" | "india"; trendKeyword?: string };
   conversionDraft?: ConversionAction | null;
-  student?: { name: string; rollNumber: string };
+  student?: { name: string };
   rationale?: string;
   twistNotes?: string;
 }

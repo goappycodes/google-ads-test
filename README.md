@@ -56,10 +56,25 @@ npm run start
 ## Stack
 
 Next.js 14 (App Router) · React 18 · TypeScript. The simulator UI is fully
-self-contained under `components/ads-simulator/` with its own scoped CSS — no
-Tailwind, fonts, or external services required.
+self-contained under `components/ads-simulator/` with its own scoped CSS and
+locally bundled Google Sans / Roboto fonts. No external services are required.
 
 ## Deploy
 
 Any Next.js host works (e.g. Vercel). It's a standard Next.js app with no
 environment variables or backend.
+
+## Exam instructions and content protection
+
+The opening Exam guide is the complete student handout: scenario, B0–B9 setup,
+90-minute workflow, rationale requirements, midway twist, rules, and HTML-report
+submission to madhu@nexisschool.com. Student identification uses a name only;
+there is no roll-number field. Reports are named Name_MidSem.html.
+
+Clipboard operations, text drops, printing and page save/source shortcuts are
+blocked inside the simulator. A student-name/time watermark overlays the UI.
+The brief is hidden after focus/visibility changes and recognised capture keys
+until the student selects Resume exam. These are browser-level deterrents;
+OS screenshots, phone photos and browser menus cannot be reliably prevented.
+
+Focused checks: `node --test scripts/exam-protection.test.cjs`.
