@@ -4,7 +4,7 @@ import type { IconName } from "./icons";
 //
 // The Keyword Planner numbers are invented but plausible, and are deliberately
 // shaped so the pedagogy of the exam works: nationally "allen" is enormous, but
-// in Siliguri the real demand is tiny — which is the whole point of the B2
+// in Siliguri the real demand is tiny — which is the basis of the location-targeting
 // "was the director's 'across India' instruction right?" caption.
 
 export type Competition = "Low" | "Medium" | "High";
@@ -206,20 +206,6 @@ export const BRIEF = {
   website: "allen.in",
   source: "Centre and fee details from a public listing (Collegedunia).",
 };
-
-// Maps each exam row to where it's done in the simulator (shown in the Guide).
-export const EXAM_ROWS = [
-  { id: "B0", title: "Keyword Planner", marks: 6, where: "Tools → Keyword Planner", must: '8 keywords incl. "allen" and "jee dropper batch"; monthly searches + top-of-page bid for Siliguri then all India; 12-month trend for one keyword' },
-  { id: "B1", title: "Campaign settings", marks: 3, where: "Build campaign → Objective, Type, Bidding", must: "Objective, networks, bid strategy" },
-  { id: "B2", title: "Location targeting", marks: 6, where: "Campaigns → Campaign settings → Locations", must: 'Places chosen + Location options setting; caption on whether "across India" was right, with a number from B0' },
-  { id: "B3", title: "Language and schedule", marks: 4, where: "Campaigns → Campaign settings", must: "Languages, days and hours" },
-  { id: "B4", title: "Ad groups and keywords", marks: 8, where: "Campaigns → Keywords and ads → Keywords", must: "≥3 ad groups, each for a different searcher, with match types" },
-  { id: "B5", title: "Negative keywords", marks: 5, where: "Campaigns → Keywords and ads → Keywords → Negative keywords", must: "≥10, specific to this brief" },
-  { id: "B6", title: "Ads", marks: 6, where: "Campaigns → Keywords and ads → Ads", must: "One ad per ad group: 8+ headlines, 3+ descriptions, final URL on allen.in" },
-  { id: "B7", title: "Assets", marks: 2, where: "Campaigns → Keywords and ads → Assets", must: "Call, 2 sitelinks, 2 callouts; an image if available" },
-  { id: "B8", title: "Budget", marks: 2, where: "Campaigns → Budget", must: "Daily budget from ₹50,000/month, with your working" },
-  { id: "B9", title: "Conversion action", marks: 3, where: "Goals → Conversions", must: "Name, category and counting setting" },
-];
 
 function synthPlannerKeyword(text: string): PlannerKeyword {
   let h = 0;

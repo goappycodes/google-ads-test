@@ -124,8 +124,7 @@ export default function KeywordPlanner() {
             <strong>{geo === "siliguri" ? "Siliguri" : "all of India"}</strong>.
             Combined avg. monthly searches:{" "}
             <strong>{fmt(geo === "siliguri" ? totalSiliguri : totalIndia)}</strong>.
-            Switch the location toggle to compare — this is the number your B2
-            caption needs.
+            Switch the location toggle to compare demand and support your targeting choices.
           </span>
         </div>
 
@@ -251,7 +250,7 @@ export default function KeywordPlanner() {
                     : "0"}
                   %
                 </strong>{" "}
-                of this keyword&rsquo;s national demand. This selected trend is included in your HTML report for B0.
+                of this keyword&rsquo;s national demand. This selected trend is included in your HTML report.
               </span>
             </div>
 

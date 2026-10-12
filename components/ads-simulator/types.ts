@@ -33,19 +33,6 @@ export interface AdGroup {
   ad: ResponsiveSearchAd;
 }
 
-export interface Sitelink {
-  id: string;
-  text: string;
-  desc1: string;
-  desc2: string;
-  url: string;
-}
-
-export interface Callout {
-  id: string;
-  text: string;
-}
-
 export interface CallAsset {
   enabled: boolean;
   country: string;
@@ -111,8 +98,6 @@ export interface Campaign {
   adGroups: AdGroup[];
   negativeKeywords: NegativeKeyword[];
 
-  sitelinks: Sitelink[];
-  callouts: Callout[];
   call: CallAsset;
   image: ImageAsset;
 }
@@ -155,5 +140,4 @@ export interface SimState {
   conversionDraft?: ConversionAction | null;
   student?: { name: string };
   rationale?: string;
-  twistNotes?: string;
 }

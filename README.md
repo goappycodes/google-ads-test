@@ -31,7 +31,7 @@ lives only in the visitor's own browser.)
 - **Campaign construction** — objective, type, bidding & networks, locations
   (incl. location options and radius targeting), languages & ad schedule, ad
   groups + keywords with match types, negative keywords, responsive search ads
-  with a live "Sponsored" preview, assets (sitelinks/callouts/call/image), daily
+  with a live "Sponsored" preview, assets (call and optional image), daily
   budget with working, and a review step (publishing is disabled).
 - **Conversions** — create a conversion action (name/category/counting).
 - **Exam guide** — the brief's facts and a checklist mapping each requirement to
@@ -66,8 +66,8 @@ environment variables or backend.
 
 ## Exam instructions and content protection
 
-The opening Exam guide is the complete student handout: scenario, B0–B9 setup,
-90-minute workflow, rationale requirements, midway twist, rules, and HTML-report
+The opening Exam guide is the complete student handout: scenario,
+90-minute workflow, campaign rationale, rules, and HTML-report
 submission to madhu@nexisschool.com. Student identification uses a name only;
 there is no roll-number field. Reports are named Name_MidSem.html.
 

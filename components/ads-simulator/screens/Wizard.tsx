@@ -20,8 +20,6 @@ import type {
   NegativeKeyword,
   ResponsiveSearchAd,
   ScheduleRow,
-  Sitelink,
-  Callout,
   BidFocus,
   LocationOption,
 } from "../types";
@@ -146,7 +144,7 @@ function ActionBar({
   const { state } = useSim();
   const isLast = step === CAMPAIGN_STEPS.length - 1;
   const reportReady = campaignChecks(state).every(check => check.ok);
-  const reportKey = JSON.stringify([state.student, state.campaign, state.conversions, state.planner, state.rationale, state.twistNotes]);
+  const reportKey = JSON.stringify([state.student, state.campaign, state.conversions, state.planner, state.rationale]);
   const [generatedKey, setGeneratedKey] = useState("");
   const sections: BuildSection[] = ["keywords", "ads", "assets"];
   const next = () => { if (!validate()) return; if (step === 3 && section !== "assets") setSection(sections[sections.indexOf(section) + 1]); else setStep(step + 1); };
@@ -498,7 +496,7 @@ function StepSettings() {
 
       <Card
         title="Locations"
-        hint="Target the places your students can actually come from. The centre is in Siliguri with no hostel (PG rooms nearby) — include the targeting choices for B2."
+        hint="Target the places your students can actually come from. The centre is in Siliguri with no hostel (PG rooms nearby)."
       >
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
           <Button size="sm" variant="outline" onClick={() => addLocation("India")}>
@@ -624,7 +622,7 @@ function StepSettings() {
 
       <Card
         title="Languages"
-        hint="Target the languages your customers speak. Included with the schedule in your report (B3)."
+        hint="Target the languages your customers speak. Included with the schedule in your report."
       >
         <FieldError name="languages" /><div className="gads-chips">
           {LANGUAGE_OPTIONS.map((l) => {
@@ -823,9 +821,9 @@ function StepAdGroups({
       <h2 className="gads-section-h">Ad groups &amp; keywords</h2><FieldError name="adGroups" />
       <InlineNote>
         <span>
-          Make <strong>at least 3 ad groups</strong>, each for a different kind of
+          Make <strong>at least 2 ad groups</strong>, each for a different kind of
           searcher (e.g. brand &ldquo;allen&rdquo;, dropper intent, local
-          Siliguri) with sensible match types — that&rsquo;s B4.{" "}
+          Siliguri) with sensible match types.{" "}
           <button
             className="gads-krow-link"
             onClick={() => onNavigate("planner")}
@@ -852,7 +850,7 @@ function StepAdGroups({
 
       <Card
         title="Negative keywords"
-        hint="Searches you don't want to pay for. Add at least 10 specific to this brief for B5 — think other exams, free/scholarship seekers, jobs, wrong class, logins and results."
+        hint="Searches you don't want to pay for. Add at least 10 specific to this brief — think other exams, free/scholarship seekers, jobs, wrong class, logins and results."
       >
         <KeywordAdder
           label="Negative keywords"
@@ -1079,7 +1077,7 @@ function StepAds() {
         <span>
           One responsive search ad per ad group: <strong>8+ headlines</strong>,{" "}
           <strong>3+ descriptions</strong>, final URL on <strong>allen.in</strong>{" "}
-          (B6). Only facts from the brief or allen.in — no rank/result claims or
+          Only facts from the brief or allen.in — no rank/result claims or
           guarantees.
         </span>
       </InlineNote>
@@ -1233,11 +1231,7 @@ function StepAds() {
               <Icon name="search" size={16} /> Preview
             </div>
             <div className="gads-preview-body">
-              <AdPreview
-                ad={ad}
-                sitelinks={c.sitelinks}
-                callouts={c.callouts}
-              />
+              <AdPreview ad={ad} />
             </div>
           </div>
         </div>
@@ -1246,15 +1240,7 @@ function StepAds() {
   );
 }
 
-function AdPreview({
-  ad,
-  sitelinks,
-  callouts,
-}: {
-  ad: ResponsiveSearchAd;
-  sitelinks: Sitelink[];
-  callouts: Callout[];
-}) {
+function AdPreview({ ad }: { ad: ResponsiveSearchAd }) {
   const heads = ad.headlines.filter((h) => h.trim()).slice(0, 3);
   const desc = ad.descriptions.filter((d) => d.trim()).slice(0, 2).join(" ");
   let host = "allen.in";
@@ -1280,26 +1266,6 @@ function AdPreview({
       <div className="desc">
         {desc || "Your descriptions appear here. Keep to facts from the brief."}
       </div>
-      {sitelinks.filter((s) => s.text.trim()).length > 0 && (
-        <div className="sitelinks">
-          {sitelinks
-            .filter((s) => s.text.trim())
-            .slice(0, 4)
-            .map((s) => (
-              <a key={s.id} href="#" onClick={(e) => e.preventDefault()}>
-                {s.text}
-              </a>
-            ))}
-        </div>
-      )}
-      {callouts.filter((c) => c.text.trim()).length > 0 && (
-        <div className="callouts">
-          {callouts
-            .filter((c) => c.text.trim())
-            .map((c) => c.text)
-            .join(" · ")}
-        </div>
-      )}
     </div>
   );
 }
@@ -1308,20 +1274,6 @@ function AdPreview({
 function StepAssets() {
   const { state, patchCampaign, setState } = useSim();
   const c = state.campaign;
-
-  const addSitelink = () =>
-    patchCampaign({
-      sitelinks: [
-        ...c.sitelinks,
-        { id: uid(), text: "", desc1: "", desc2: "", url: "" },
-      ],
-    });
-  const updSitelink = (id: string, p: Partial<Sitelink>) =>
-    patchCampaign({
-      sitelinks: c.sitelinks.map((s) => (s.id === id ? { ...s, ...p } : s)),
-    });
-  const addCallout = () =>
-    patchCampaign({ callouts: [...c.callouts, { id: uid(), text: "" }] });
 
   const onImage = async (file?: File) => {
     if (!file) return;
@@ -1340,126 +1292,9 @@ function StepAssets() {
       <h2 className="gads-section-h">Assets (ad extensions)</h2>
       <InlineNote>
         <span>
-          For B7: a <strong>Call</strong> asset, <strong>2 sitelinks</strong>,{" "}
-          <strong>2 callouts</strong>; an image is optional if available.
+          Add a <strong>Call</strong> asset; an image is optional if available.
         </span>
       </InlineNote>
-
-      <Card
-        title="Sitelink assets"
-        hint="Extra links under your ad. Add at least 2 — e.g. JEE Dropper Batch, Book a Counselling Call."
-        right={
-          <Button size="sm" variant="outline" icon="add" onClick={addSitelink}>
-            Add sitelink
-          </Button>
-        }
-      >
-        <FieldError name="sitelinks" />{c.sitelinks.length === 0 && (
-          <div className="gads-muted">No sitelinks yet.</div>
-        )}
-        {c.sitelinks.map((s, i) => (
-          <div key={s.id} style={{ marginBottom: 14 }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginBottom: 6,
-              }}
-            >
-              <strong style={{ fontSize: 13 }}>Sitelink {i + 1}</strong>
-              <button
-                className="gads-krow-link"
-                onClick={() =>
-                  patchCampaign({
-                    sitelinks: c.sitelinks.filter((x) => x.id !== s.id),
-                  })
-                }
-              >
-                Remove
-              </button>
-            </div>
-            <TextInput
-              label="Sitelink text"
-              validationKey={`sitelink.${s.id}.text`}
-              value={s.text}
-              onChange={(v) => updSitelink(s.id, { text: v })}
-              maxLength={25}
-            />
-            <div style={{ height: 8 }} />
-            <input
-              className="gads-input"
-              list="allen-pages-assets"
-              aria-label={`Sitelink ${i + 1} final URL`}
-              value={s.url}
-              onChange={(e) => updSitelink(s.id, { url: e.target.value })}
-            />
-            <FieldError name={`sitelink.${s.id}.url`} /><div className="gads-row" style={{ marginTop: 8 }}>
-              <TextInput
-                value={s.desc1}
-                onChange={(v) => updSitelink(s.id, { desc1: v })}
-                maxLength={35}
-                label="Description line 1 (optional)"
-              />
-              <TextInput
-                value={s.desc2}
-                onChange={(v) => updSitelink(s.id, { desc2: v })}
-                maxLength={35}
-                label="Description line 2 (optional)"
-              />
-            </div>
-          </div>
-        ))}
-        <datalist id="allen-pages-assets">
-          {ALLEN_PAGES.map((p) => (
-            <option key={p} value={p} />
-          ))}
-        </datalist>
-      </Card>
-
-      <Card
-        title="Callout assets"
-        hint="Short, non-clickable phrases. Add at least 2 — e.g. 1-Year Leader Course, Classroom or Online."
-        right={
-          <Button size="sm" variant="outline" icon="add" onClick={addCallout}>
-            Add callout
-          </Button>
-        }
-      >
-        <FieldError name="callouts" />{c.callouts.length === 0 && (
-          <div className="gads-muted">No callouts yet.</div>
-        )}
-        {c.callouts.map((co, i) => (
-          <div
-            key={co.id}
-            style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 8 }}
-          >
-            <TextInput
-              validationKey={`callout.${co.id}`}
-              value={co.text}
-              onChange={(v) =>
-                patchCampaign({
-                  callouts: c.callouts.map((x) =>
-                    x.id === co.id ? { ...x, text: v } : x
-                  ),
-                })
-              }
-              maxLength={25}
-              label={`Callout ${i + 1}`}
-            />
-            <button
-              className="gads-icon-btn"
-              aria-label="Remove callout"
-              onClick={() =>
-                patchCampaign({
-                  callouts: c.callouts.filter((x) => x.id !== co.id),
-                })
-              }
-            >
-              <Icon name="close" size={16} />
-            </button>
-          </div>
-        ))}
-      </Card>
 
       <Card
         title="Call asset"
@@ -1567,7 +1402,7 @@ function StepBudget() {
       <p className="gads-help">For most campaigns, spending can be up to twice this amount on a day. The monthly charging limit is 30.4 times your average daily budget.</p>
       {daily > 0 && <div className="gads-budget-summary"><span>Average daily budget<strong>₹{daily.toLocaleString("en-IN", { maximumFractionDigits: 2 })}</strong></span><span>Monthly estimate<strong>₹{(daily * 30.4).toLocaleString("en-IN", { maximumFractionDigits: 2 })}</strong></span></div>}
     </Card>
-    <Card title="Exam budget calculator" hint="B8 · Show the working from the monthly budget in your brief.">
+    <Card title="Exam budget calculator" hint="Show the working from the monthly budget in your brief.">
       <Field label="Monthly budget"><TextInput aria-label="Monthly budget" value={c.budgetMonthly} prefix="₹" inputMode="decimal" onChange={v => patchCampaign({ budgetMonthly: v.replace(/[^\d.]/g, "") })} /></Field>
       <div className="gads-budget-working">₹{monthly.toLocaleString("en-IN")} ÷ 30.4 = <strong>₹{calculated.toFixed(2)} / day</strong></div>
       <Button variant="outline" disabled={monthly <= 0} onClick={() => patchCampaign({ budgetDaily: calculated.toFixed(2) })}>Use calculated daily budget</Button>
@@ -1611,8 +1446,7 @@ function StepReview({ onNavigate }: { onNavigate: Navigate }) {
         <Field label="Student name" validationKey="studentName"><TextInput value={state.student?.name || ""} maxLength={100} onChange={name => patch({ student: { name } })} /></Field>
       </div>
       <FieldError name="reportReady" />
-      <Field label="Campaign rationale — one labelled reason for B0–B9" validationKey="rationale"><TextArea value={state.rationale || ""} rows={10} onChange={rationale => patch({ rationale })} /></Field>
-      <Field label="Twist notes (optional)"><TextArea value={state.twistNotes || ""} rows={4} onChange={twistNotes => patch({ twistNotes })} /></Field>
+      <Field label="Campaign rationale" validationKey="rationale"><TextArea value={state.rationale || ""} rows={6} onChange={rationale => patch({ rationale })} /></Field>
       <p className="gads-help">The HTML file contains your entire campaign setup and opens in a browser. After generating it, use Email submission to open a draft email. Attach the downloaded HTML file before sending.</p>
     </Card>
     <InlineNote><span>This practice account never publishes ads or asks for payment. You can download a JSON backup from the toolbar at any time. Generate a new report after making changes to your setup.</span></InlineNote>

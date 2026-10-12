@@ -9,11 +9,6 @@ export interface ValidationIssue { field: string; message: string; step: number;
 export const validMoney = (value: string) => /^\d+(\.\d{1,2})?$/.test(value.trim()) && Number.isFinite(Number(value)) && Number(value) > 0;
 export const validPhone = (value: string) => /^[+\d\s()-]+$/.test(value) && value.replace(/\D/g, "").length >= 10 && value.replace(/\D/g, "").length <= 15;
 
-export function missingRationaleRows(value = ""): string[] {
-  const present = new Set(Array.from(value.matchAll(/^\s*(B[0-9])\s*[:\-–—]\s*\S+/gmi), match => match[1].toUpperCase()));
-  return Array.from({ length: 10 }, (_, i) => `B${i}`).filter(row => !present.has(row));
-}
-
 export function campaignIssues(state: SimState): ValidationIssue[] {
   const c = state.campaign;
   const errors: ValidationIssue[] = [];
@@ -35,7 +30,7 @@ export function campaignIssues(state: SimState): ValidationIssue[] {
   });
   if (c.startDate && c.endDate && c.endDate < c.startDate) add("endDate", "End date must be on or after the start date.", 2);
   if (radii.some(r => !r.center.trim() || !Number.isFinite(Number(r.distance)) || Number(r.distance) * (r.unit === "mi" ? 1.609344 : 1) < 1 || !["km", "mi"].includes(r.unit))) add("locations", "Every radius needs a centre and a distance covering at least 1 km.", 2);
-  if (c.adGroups.length < 3) add("adGroups", "Create at least 3 ad groups for this practical.", 3, "keywords");
+  if (c.adGroups.length < 2) add("adGroups", "Create at least 2 ad groups for this practical.", 3, "keywords");
   const names = new Set<string>();
   c.adGroups.forEach(g => {
     const key = g.name.trim().toLowerCase();
@@ -54,21 +49,12 @@ export function campaignIssues(state: SimState): ValidationIssue[] {
   });
   if (c.negativeKeywords.length < 10) add("negativeKeywords", "Add at least 10 negative keywords for this practical.", 3, "keywords");
   if (c.negativeKeywords.some(k => !k.text.trim() || k.text.length > 80)) add("negativeKeywords", "Negative keywords must contain 1–80 characters.", 3, "keywords");
-  if (c.sitelinks.length < 2) add("sitelinks", "Add at least 2 sitelinks.", 3, "assets");
-  c.sitelinks.forEach(s => {
-    if (!s.text.trim() || s.text.length > 25) add(`sitelink.${s.id}.text`, "Enter sitelink text of 1–25 characters.", 3, "assets");
-    if (!validLandingPage(s.url)) add(`sitelink.${s.id}.url`, "Enter a valid http or https URL on allen.in.", 3, "assets");
-    if (s.desc1.length > 35 || s.desc2.length > 35) add(`sitelink.${s.id}.descriptions`, "Each description can contain at most 35 characters.", 3, "assets");
-  });
-  if (c.callouts.length < 2) add("callouts", "Add at least 2 callouts.", 3, "assets");
-  c.callouts.forEach(x => { if (!x.text.trim() || x.text.length > 25) add(`callout.${x.id}`, "Enter callout text of 1–25 characters.", 3, "assets"); });
   if (!c.call.enabled) add("call", "Enable a call asset for this practical.", 3, "assets");
   else if (!validPhone(c.call.number)) add("callNumber", "Enter a phone number with 10–15 digits.", 3, "assets");
   if (c.image.enabled && !c.image.dataUrl) add("image", "Upload an image or turn off the optional image asset.", 3, "assets");
   if (!validMoney(c.budgetDaily)) add("budgetDaily", "Enter a daily budget greater than 0, with at most 2 decimal places.", 4);
   if (!state.student?.name.trim() || state.student.name.length > 100) add("studentName", "Enter your name (1–100 characters).", 5);
-  const missingReasons = missingRationaleRows(state.rationale);
-  if (missingReasons.length) add("rationale", `Add a separate labelled reason for ${missingReasons.join(", ")}.`, 5);
+  if (!state.rationale?.trim()) add("rationale", "Explain your campaign decisions in your own words.", 5);
   if (state.conversionDraft) add("reportReady", "Save or cancel the unfinished conversion action before generating your report.", 5);
   return errors;
 }

@@ -856,21 +856,6 @@
   font-size: 13px;
   line-height: 1.5;
 }
-.gads-serp-ad .sitelinks {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px 24px;
-  margin-top: 10px;
-}
-.gads-serp-ad .sitelinks a {
-  color: #1a0dab;
-  font-size: 13px;
-}
-.gads-serp-ad .callouts {
-  color: #4d5156;
-  font-size: 13px;
-  margin-top: 6px;
-}
 
 .gads-asset-rows .gads-input {
   margin-bottom: 8px;

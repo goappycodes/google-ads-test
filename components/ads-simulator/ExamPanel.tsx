@@ -17,11 +17,11 @@ export default function ExamPanel({ onNavigate }: { onNavigate: Navigate }) {
       <Icon name={open ? "close" : "chevron"} size={18} />
     </button>
     {open && <div className="gads-exam-content">
-      <p>Suggested pace: research 15 min · settings 15 min · keywords, ads &amp; assets 35 min · conversions &amp; budget 10 min · review, rationale &amp; twist 15 min.</p>
+      <p>Suggested pace: research 15 min · settings 15 min · keywords, ads &amp; assets 35 min · conversions &amp; budget 10 min · review, rationale &amp; submission 15 min.</p>
       <div className="gads-exam-checks">{checks.map(check => <button key={check.label} onClick={() => onNavigate(check.step < 0 ? "conversions" : "build", check.step < 0 ? undefined : check.step, check.section)}>
         <Icon name={check.ok ? "checkCircle" : "info"} size={16} /><span>{check.label}</span>
       </button>)}</div>
-      <div className="gads-exam-footer"><button onClick={() => onNavigate("planner")}>B0 · Keyword Planner</button><button onClick={() => onNavigate("guide")}>Open exam brief &amp; evidence checklist</button></div>
+      <div className="gads-exam-footer"><button onClick={() => onNavigate("planner")}>Keyword Planner</button><button onClick={() => onNavigate("guide")}>Open exam brief</button></div>
       <p className="gads-help">These checks confirm field completion. Generate your HTML report from Review and email it to madhu@nexisschool.com. Planner figures are simulated.</p>
     </div>}
   </aside>;

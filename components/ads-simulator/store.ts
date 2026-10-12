@@ -9,7 +9,8 @@ import type {
   ResponsiveSearchAd,
 } from "./types";
 
-export const STATE_VERSION = 1;
+export const STATE_VERSION = 2;
+// Keep the storage key stable so existing student drafts can be migrated.
 export const STORAGE_KEY = "nexis.adsSimulator.v1";
 export const UNLOCK_KEY = "nexis.adsSimulator.unlocked";
 export const UNLOCK_CODE = "allen2027";
@@ -68,8 +69,6 @@ function defaultCampaign(): Campaign {
     budgetDaily: "",
     adGroups: [emptyAdGroup()],
     negativeKeywords: [],
-    sitelinks: [],
-    callouts: [],
     call: { enabled: false, country: "India (+91)", number: "" },
     image: { enabled: false, name: "", dataUrl: "" },
   };
@@ -95,7 +94,7 @@ export function loadState(): SimState {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return defaultState();
     const parsed = JSON.parse(raw) as SimState;
-    if (!parsed || typeof parsed !== "object" || parsed.version !== STATE_VERSION) {
+    if (!parsed || typeof parsed !== "object" || ![1, STATE_VERSION].includes(parsed.version)) {
       return defaultState();
     }
     // Shallow-merge onto defaults so new fields added later don't crash.
@@ -113,19 +112,24 @@ export function loadState(): SimState {
 }
 
 export function upgradeNavigation(state: SimState): SimState {
+  const currentState = { ...state };
+  const currentCampaign = { ...state.campaign };
+  // Drop retired optional fields while preserving the rest of older drafts.
+  delete (currentState as unknown as Record<string, unknown>).twistNotes;
+  for (const field of ["sitelinks", "callouts"]) delete (currentCampaign as unknown as Record<string, unknown>)[field];
   const legacy = state.wizardVersion !== 2;
   const step = legacy ? [0, 0, 1, 2, 3, 3, 3, 4, 5][state.lastStep] ?? 0 : state.lastStep;
-  return { ...state, wizardVersion: 2,
+  return { ...currentState, version: STATE_VERSION, wizardVersion: 2,
     lastStep: Number.isFinite(step) ? Math.min(Math.max(step, 0), 5) : 0,
     buildSection: state.buildSection || (legacy && state.lastStep === 5 ? "ads" : legacy && state.lastStep === 6 ? "assets" : "keywords"),
-    campaign: { ...state.campaign, budgetDaily: legacy && !state.campaign.budgetDaily && Number(state.campaign.budgetMonthly) > 0 ? (Number(state.campaign.budgetMonthly) / 30.4).toFixed(2) : state.campaign.budgetDaily },
+    campaign: { ...currentCampaign, budgetDaily: legacy && !state.campaign.budgetDaily && Number(state.campaign.budgetMonthly) > 0 ? (Number(state.campaign.budgetMonthly) / 30.4).toFixed(2) : state.campaign.budgetDaily },
   };
 }
 
 export function restoreBackup(value: unknown): SimState {
   if (!value || typeof value !== "object") throw new Error("Invalid backup");
   const state = value as SimState;
-  if (state.version !== STATE_VERSION || !state.campaign || !Array.isArray(state.campaign.adGroups) || !Array.isArray(state.conversions)) throw new Error("Invalid backup");
+  if (![1, STATE_VERSION].includes(state.version) || !state.campaign || !Array.isArray(state.campaign.adGroups) || !Array.isArray(state.conversions)) throw new Error("Invalid backup");
   const base = defaultState();
   const candidate = { ...base, ...state, campaign: { ...base.campaign, ...state.campaign } };
   // Compare required scalar fields to their defaults, then check each list's shape.
@@ -139,8 +143,6 @@ export function restoreBackup(value: unknown): SimState {
   const template = { ...base.campaign,
     adGroups: [{ ...emptyAdGroup(), keywords: [{ id: "", text: "", match: "" }] }],
     negativeKeywords: [{ id: "", text: "", match: "" }],
-    sitelinks: [{ id: "", text: "", desc1: "", desc2: "", url: "" }],
-    callouts: [{ id: "", text: "" }],
     adSchedule: [{ id: "", days: "", start: "", end: "" }],
   };
   const conversionTemplate = { id: "", name: "", source: "", category: "", valueMode: "", value: "", count: "", windowDays: "", includeInConversions: true };

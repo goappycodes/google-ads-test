@@ -92,7 +92,7 @@ export default function Conversions() {
         >
           {state.conversions.length === 0 ? (
             <div className="gads-muted" style={{ padding: "20px 0" }}>
-              No conversion actions yet. Create one for B9 —
+              No conversion actions yet. Create one —
               an &ldquo;Admission enquiry&rdquo; lead form submission.
             </div>
           ) : (
@@ -152,7 +152,7 @@ export default function Conversions() {
           <InlineNote>
             For this brief a lead campaign usually tracks an enquiry form. Pick a
             category and counting setting that matches a <em>lead</em>, then
-            save it for your report (B9).
+            save it for your report.
           </InlineNote>
 
           <Field label="Goal source">
