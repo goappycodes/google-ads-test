@@ -362,6 +362,7 @@ function StepBidding() {
             <Select
               value={c.bidFocus}
               onChange={(v) => patchCampaign({ bidFocus: v as BidFocus })}
+              placeholder="Select a bid focus"
               options={BID_FOCUS_OPTIONS.map((b) => ({
                 value: b.id,
                 label: b.label,

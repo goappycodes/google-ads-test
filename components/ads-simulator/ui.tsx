@@ -136,11 +136,13 @@ export function Select({
   value,
   onChange,
   options,
+  placeholder,
   ...rest
 }: {
   value: string;
   onChange: (v: string) => void;
   options: { value: string; label: string }[] | string[];
+  placeholder?: string;
 } & Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "onChange" | "value">) {
   const field = React.useContext(FieldContext);
   const opts = options.map((o) =>
@@ -155,6 +157,11 @@ export function Select({
       onChange={(e) => onChange(e.target.value)}
       {...rest}
     >
+      {placeholder !== undefined && (
+        <option value="" disabled>
+          {placeholder}
+        </option>
+      )}
       {opts.map((o) => (
         <option key={o.value} value={o.value}>
           {o.label}

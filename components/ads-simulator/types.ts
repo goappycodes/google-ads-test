@@ -70,7 +70,7 @@ export interface Campaign {
   conversionGoals: string[];
   name: string;
 
-  bidFocus: BidFocus;
+  bidFocus: BidFocus | ""; // "" until the student chooses
   targetCpaEnabled: boolean;
   targetCpa: string;
   maxCpcLimitEnabled: boolean;

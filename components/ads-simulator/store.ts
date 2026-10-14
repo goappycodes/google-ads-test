@@ -56,7 +56,7 @@ function defaultCampaign(): Campaign {
     type: "search",
     conversionGoals: [],
     name: "",
-    bidFocus: "conversions",
+    bidFocus: "",
     targetCpaEnabled: false,
     targetCpa: "",
     maxCpcLimitEnabled: false,
