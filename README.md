@@ -80,7 +80,7 @@ and presses Send from their own account.
 ## Exam instructions and content protection
 
 The opening Exam guide is the complete student handout: scenario,
-90-minute workflow, campaign rationale, rules, and HTML-report
+60-minute workflow, campaign rationale, rules, and HTML-report
 submission to madhu@nexisschool.com. Student identification uses a name only;
 there is no roll-number field. Reports are named Name_MidSem.html.
 

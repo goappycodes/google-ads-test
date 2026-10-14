@@ -41,13 +41,13 @@ export function campaignIssues(state: SimState): ValidationIssue[] {
     if (g.keywords.some(k => k.text.length > 80 || !k.text.trim())) add(`group.${g.id}.keywords`, "Keywords must contain 1–80 characters.", 3, "keywords");
     const a = g.ad;
     if (!validLandingPage(a.finalUrl)) add(`ad.${g.id}.url`, "Enter a valid http or https URL on allen.in.", 3, "ads");
-    if (a.headlines.filter(h => h.trim()).length < 8) add(`ad.${g.id}.headlines`, "Write at least 8 headlines for this ad.", 3, "ads");
-    if (a.descriptions.filter(d => d.trim()).length < 3) add(`ad.${g.id}.descriptions`, "Write at least 3 descriptions for this ad.", 3, "ads");
+    if (a.headlines.filter(h => h.trim()).length < 5) add(`ad.${g.id}.headlines`, "Write at least 5 headlines for this ad.", 3, "ads");
+    if (a.descriptions.filter(d => d.trim()).length < 2) add(`ad.${g.id}.descriptions`, "Write at least 2 descriptions for this ad.", 3, "ads");
     a.headlines.forEach((h, i) => { if (h.length > 30) add(`ad.${g.id}.headline.${i}`, "Use 30 characters or fewer.", 3, "ads"); });
     a.descriptions.forEach((d, i) => { if (d.length > 90) add(`ad.${g.id}.description.${i}`, "Use 90 characters or fewer.", 3, "ads"); });
     if (a.path1.length > 15 || a.path2.length > 15) add(`ad.${g.id}.paths`, "Each display path can contain at most 15 characters.", 3, "ads");
   });
-  if (c.negativeKeywords.length < 10) add("negativeKeywords", "Add at least 10 negative keywords for this practical.", 3, "keywords");
+  if (c.negativeKeywords.length < 5) add("negativeKeywords", "Add at least 5 negative keywords for this practical.", 3, "keywords");
   if (c.negativeKeywords.some(k => !k.text.trim() || k.text.length > 80)) add("negativeKeywords", "Negative keywords must contain 1–80 characters.", 3, "keywords");
   if (!c.call.enabled) add("call", "Enable a call asset for this practical.", 3, "assets");
   else if (!validPhone(c.call.number)) add("callNumber", "Enter a phone number with 10–15 digits.", 3, "assets");

@@ -28,6 +28,6 @@ export default function Campaigns({ onNavigate }: { onNavigate: Navigate }) {
         <td><button className="gads-krow-link" onClick={() => onNavigate("build")}>Resume</button></td>
       </tr></tbody></table></div> : <div className="gads-campaign-empty"><Icon name="campaign" size={36} /><h2>Create your first campaign</h2><p>Start with a campaign objective, then set up your Search campaign.</p><Button onClick={create}>New campaign</Button></div>}
     </div>
-    <div className="gads-inline-note"><Icon name="info" size={18} /><span>Simulation account · Campaigns remain drafts. No ads are served, and there are no charges. Open the 90-minute practical panel for the exam checklist.</span></div>
+    <div className="gads-inline-note"><Icon name="info" size={18} /><span>Simulation account · Campaigns remain drafts. No ads are served, and there are no charges. Open the 60-minute practical panel for the exam checklist.</span></div>
   </div>;
 }

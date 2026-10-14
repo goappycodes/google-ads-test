@@ -10,9 +10,9 @@ import type { Navigate } from "../flow";
 export default function Guide({ onNavigate }: { onNavigate: Navigate }) {
   const { state, patch } = useSim();
   return <div className="gads-exam-handout">
-    <h1 className="gads-page-title">Google Search Ads — 90-minute practical</h1>
+    <h1 className="gads-page-title">Google Search Ads — 60-minute practical</h1>
     <p className="gads-page-sub">This page is your complete exam handout. Read it before starting, and return to Exam guide whenever you need it.</p>
-    <div className="gads-exam-facts"><span>90 minutes</span><span>One Search campaign</span><span>Individual setup and explanation</span><span>HTML report by email</span></div>
+    <div className="gads-exam-facts"><span>60 minutes</span><span>One Search campaign</span><span>Individual setup and explanation</span><span>HTML report by email</span></div>
 
     <Card title="What you have to do">
       <p>You are the marketing manager of ALLEN Career Institute’s Siliguri centre. Research, build and defend one Google Search campaign to fill its one-year JEE batch for students who have finished Class 12 and are taking a drop year to try again. Use at least two ad groups, each for a different kind of searcher.</p>
@@ -45,7 +45,7 @@ export default function Guide({ onNavigate }: { onNavigate: Navigate }) {
       </div>
       <ul>
         <li>Enter your name accurately. It is saved with your draft and used in the report filename and exam watermark.</li>
-        <li>The examiner announces the start and finish. You have 90 minutes in total; submit your report before the announced finish.</li>
+        <li>The examiner announces the start and finish. You have 60 minutes in total; submit your report before the announced finish.</li>
         <li>Use Tools → Keyword Planner for research. Its search volumes, bids and trends are simulated training data, not live Google Ads figures. Use the same figures in your explanations.</li>
         <li>You may check allen.in for existing landing pages and verifiable ALLEN facts. Do not open a real advertising account, add payment details or publish a campaign.</li>
         <li>Work saves in this browser. Stay on the same device and browser; do not clear browser data. Use the toolbar’s JSON backup if you need a recoverable copy. A backup is not your final submission.</li>
@@ -62,8 +62,8 @@ export default function Guide({ onNavigate }: { onNavigate: Navigate }) {
       <ul><li>Use only the supplied scenario facts or claims you can verify on allen.in. Do not invent prices, ranks, results or promises.</li><li>Your audience did not qualify in JEE this year. No ad may guarantee a rank or result, or make a student feel bad about their exam.</li><li>Use consistent research figures and explainable decisions. Work you cannot explain may be rejected during a spot check.</li><li>Type your own answers. Copy, cut, paste, text drag-and-drop and printing are disabled in the simulator. Do not photograph or share exam content.</li><li>The brief is watermarked and hides when the page loses focus. Select <strong>Resume exam</strong> to reveal it again.</li><li>Do not publish a campaign and do not add payment details. Nothing in this simulator serves ads or spends money.</li></ul>
     </Card>
 
-    <Card title="Use the 90 minutes well">
-      <div className="gads-exam-timeline"><div><strong>15 min</strong><span>Read the brief and research keywords</span></div><div><strong>15 min</strong><span>Campaign settings</span></div><div><strong>35 min</strong><span>Keywords, ads and assets</span></div><div><strong>10 min</strong><span>Conversions and budget</span></div><div><strong>15 min</strong><span>Reasons, review and submission</span></div></div>
+    <Card title="Use the 60 minutes well">
+      <div className="gads-exam-timeline"><div><strong>10 min</strong><span>Read the brief and research keywords</span></div><div><strong>10 min</strong><span>Campaign settings</span></div><div><strong>25 min</strong><span>Keywords, ads and assets</span></div><div><strong>5 min</strong><span>Conversions and budget</span></div><div><strong>10 min</strong><span>Reasons, review and submission</span></div></div>
       <p className="gads-help">This is a suggested pace. Leave time to review your setup and send your final report.</p>
     </Card>
 

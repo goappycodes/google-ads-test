@@ -850,7 +850,7 @@ function StepAdGroups({
 
       <Card
         title="Negative keywords"
-        hint="Searches you don't want to pay for. Add at least 10 specific to this brief — think other exams, free/scholarship seekers, jobs, wrong class, logins and results."
+        hint="Searches you don't want to pay for. Add at least 5 specific to this brief — think other exams, free/scholarship seekers, jobs, wrong class, logins and results."
       >
         <KeywordAdder
           label="Negative keywords"
