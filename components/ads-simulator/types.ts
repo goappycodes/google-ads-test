@@ -18,8 +18,8 @@ export interface NegativeKeyword {
 }
 
 export interface ResponsiveSearchAd {
-  headlines: string[]; // up to 15
-  descriptions: string[]; // up to 4
+  headlines: string[]; // exactly HEADLINE_COUNT
+  descriptions: string[]; // exactly DESCRIPTION_COUNT
   finalUrl: string;
   path1: string;
   path2: string;

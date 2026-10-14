@@ -35,8 +35,6 @@ export default function Guide({ onNavigate }: { onNavigate: Navigate }) {
         <dt>Website</dt><dd>{BRIEF.website} — choose the best existing page for each ad group</dd>
       </dl>
       <p className="gads-help">{BRIEF.source} These are the supplied facts. You may verify additional ad claims and landing pages on allen.in; do not invent information.</p>
-      <blockquote className="gads-director-quote">“Everyone knows ALLEN. Just bid on ‘allen’ across India and the admissions will come.”</blockquote>
-      <p>Your director has made this claim. Your explanation must agree or disagree using a number from your own Planner research and a fact from this scenario. Do not accept the claim without examining the data.</p>
     </Card>
 
     <Card title="Before you start">
@@ -54,7 +52,7 @@ export default function Guide({ onNavigate }: { onNavigate: Navigate }) {
 
     <Card title="Explain your decisions">
       <p>On Review, use <strong>Campaign rationale</strong> to explain your research, targeting, bidding, keywords, ads, assets and budget choices. Write in your own words; do not just repeat the settings.</p>
-      <p>Every reason must cite a relevant fact from this brief or a number from your Planner research. Any number you mention must match the research in your report. Explicitly address the director’s national-targeting claim. Include your budget working.</p>
+      <p>Every reason must cite a relevant fact from this brief or a number from your Planner research. Any number you mention must match the research in your report. Include your budget working.</p>
       <p>Be prepared to explain your setup in a spot check during the next class. Completing fields alone does not demonstrate that the campaign fits the brief.</p>
     </Card>
 

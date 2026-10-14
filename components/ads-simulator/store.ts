@@ -26,10 +26,14 @@ export function uid(): string {
   return "id-" + Math.random().toString(36).slice(2) + Date.now().toString(36);
 }
 
+// The practical asks for exactly this many headlines and descriptions per ad.
+export const HEADLINE_COUNT = 5;
+export const DESCRIPTION_COUNT = 2;
+
 export function emptyAd(): ResponsiveSearchAd {
   return {
-    headlines: Array(8).fill(""),
-    descriptions: Array(3).fill(""),
+    headlines: Array(HEADLINE_COUNT).fill(""),
+    descriptions: Array(DESCRIPTION_COUNT).fill(""),
     finalUrl: "",
     path1: "",
     path2: "",

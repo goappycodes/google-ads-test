@@ -1304,7 +1304,6 @@
 .gads-exam-handout .gads-page-title, .gads-exam-handout h3 { text-align: left; }
 .gads-exam-facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 24px; }
 .gads-exam-facts span { border: 1px solid var(--g-line); border-radius: 16px; padding: 5px 12px; background: white; font-size: 12px; }
-.gads-director-quote { border-left: 3px solid var(--g-blue); background: var(--g-blue-tint); padding: 16px 20px; margin: 20px 0; font-size: 16px; }
 .gads-exam-timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 20px 0; }
 .gads-exam-timeline > div { border: 1px solid var(--g-line); border-radius: 6px; padding: 16px; }
 .gads-exam-timeline strong { display: block; font-size: 20px; font-weight: 400; color: var(--g-blue); margin-bottom: 8px; }

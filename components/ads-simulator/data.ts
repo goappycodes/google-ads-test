@@ -4,8 +4,7 @@ import type { IconName } from "./icons";
 //
 // The Keyword Planner numbers are invented but plausible, and are deliberately
 // shaped so the pedagogy of the exam works: nationally "allen" is enormous, but
-// in Siliguri the real demand is tiny — which is the basis of the location-targeting
-// "was the director's 'across India' instruction right?" caption.
+// in Siliguri the real demand is tiny, which rewards careful location targeting.
 
 export type Competition = "Low" | "Medium" | "High";
 

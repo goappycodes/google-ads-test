@@ -81,7 +81,7 @@ test("a two-group campaign generates a report without retired exam sections", ()
   state.rationale = "I chose local targeting to match the centre, and researched keyword demand before creating ads.";
   const c = state.campaign;
   Object.assign(c, { name: "Local Search Campaign", objective: "leads", conversionGoals: ["Submit lead form"], locations: ["Siliguri"], budgetDaily: "1644.74" });
-  c.adGroups = ["Brand", "Local"].map(name => ({ ...emptyAdGroup(name), keywords: [{ id: name, text: name.toLowerCase(), match: "phrase" }], ad: { finalUrl: "https://allen.in/jee", path1: "", path2: "", businessName: "ALLEN", headlines: Array.from({ length: 8 }, (_, i) => `Course headline ${i + 1}`), descriptions: ["One-year course for Class 12 pass students.", "Classroom and online learning.", "Contact the Siliguri centre for course information."] } }));
+  c.adGroups = ["Brand", "Local"].map(name => ({ ...emptyAdGroup(name), keywords: [{ id: name, text: name.toLowerCase(), match: "phrase" }], ad: { finalUrl: "https://allen.in/jee", path1: "", path2: "", businessName: "ALLEN", headlines: Array.from({ length: 5 }, (_, i) => `Course headline ${i + 1}`), descriptions: ["One-year course for Class 12 pass students.", "Contact the Siliguri centre for course information."] } }));
   c.negativeKeywords = Array.from({ length: 10 }, (_, i) => ({ id: String(i), text: `negative ${i + 1}`, match: "broad" }));
   c.call = { enabled: true, country: "India (+91)", number: "9300000000" };
   state.conversions = [{ id: "conversion", name: "Enquiry form", source: "Website", category: "Submit lead form", valueMode: "none", value: "", count: "one", windowDays: "30", includeInConversions: true }];

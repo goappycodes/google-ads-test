@@ -1,5 +1,6 @@
 import type { ConversionAction, SimState } from "./types";
 import type { BuildSection } from "./flow";
+import { HEADLINE_COUNT, DESCRIPTION_COUNT } from "./store";
 
 export function validLandingPage(value: string): boolean {
   try { const url = new URL(value); return ["https:", "http:"].includes(url.protocol) && (url.hostname === "allen.in" || url.hostname.endsWith(".allen.in")); } catch { return false; }
@@ -41,8 +42,8 @@ export function campaignIssues(state: SimState): ValidationIssue[] {
     if (g.keywords.some(k => k.text.length > 80 || !k.text.trim())) add(`group.${g.id}.keywords`, "Keywords must contain 1–80 characters.", 3, "keywords");
     const a = g.ad;
     if (!validLandingPage(a.finalUrl)) add(`ad.${g.id}.url`, "Enter a valid http or https URL on allen.in.", 3, "ads");
-    if (a.headlines.filter(h => h.trim()).length < 5) add(`ad.${g.id}.headlines`, "Write at least 5 headlines for this ad.", 3, "ads");
-    if (a.descriptions.filter(d => d.trim()).length < 2) add(`ad.${g.id}.descriptions`, "Write at least 2 descriptions for this ad.", 3, "ads");
+    if (a.headlines.length !== HEADLINE_COUNT || a.headlines.some(h => !h.trim())) add(`ad.${g.id}.headlines`, `Write exactly ${HEADLINE_COUNT} headlines for this ad.`, 3, "ads");
+    if (a.descriptions.length !== DESCRIPTION_COUNT || a.descriptions.some(d => !d.trim())) add(`ad.${g.id}.descriptions`, `Write exactly ${DESCRIPTION_COUNT} descriptions for this ad.`, 3, "ads");
     a.headlines.forEach((h, i) => { if (h.length > 30) add(`ad.${g.id}.headline.${i}`, "Use 30 characters or fewer.", 3, "ads"); });
     a.descriptions.forEach((d, i) => { if (d.length > 90) add(`ad.${g.id}.description.${i}`, "Use 90 characters or fewer.", 3, "ads"); });
     if (a.path1.length > 15 || a.path2.length > 15) add(`ad.${g.id}.paths`, "Each display path can contain at most 15 characters.", 3, "ads");

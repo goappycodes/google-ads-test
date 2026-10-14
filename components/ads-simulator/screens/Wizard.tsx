@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useSim } from "../context";
-import { uid, emptyAdGroup } from "../store";
+import { uid, emptyAdGroup, HEADLINE_COUNT, DESCRIPTION_COUNT } from "../store";
 import { fileToResizedDataUrl } from "../image";
 import {
   OBJECTIVES,
@@ -1065,7 +1065,7 @@ function StepAds() {
   const filledD = ad.descriptions.filter((x) => x.trim()).length;
   const strength = Math.min(
     100,
-    Math.round((filledH / 8) * 55 + (filledD / 3) * 45)
+    Math.round((filledH / HEADLINE_COUNT) * 55 + (filledD / DESCRIPTION_COUNT) * 45)
   );
   const strengthLabel =
     strength >= 85 ? "Excellent" : strength >= 60 ? "Good" : strength >= 35 ? "Average" : "Poor";
@@ -1075,8 +1075,8 @@ function StepAds() {
       <h2 className="gads-section-h">Create your ads</h2>
       <InlineNote>
         <span>
-          One responsive search ad per ad group: <strong>8+ headlines</strong>,{" "}
-          <strong>3+ descriptions</strong>, final URL on <strong>allen.in</strong>{" "}
+          One responsive search ad per ad group: <strong>{HEADLINE_COUNT} headlines</strong>,{" "}
+          <strong>{DESCRIPTION_COUNT} descriptions</strong>, final URL on <strong>allen.in</strong>{" "}
           Only facts from the brief or allen.in — no rank/result claims or
           guarantees.
         </span>
@@ -1140,7 +1140,7 @@ function StepAds() {
 
             <div className="gads-divider" />
             <label className="gads-label">
-              Headlines ({filledH}/15 · aim for 8+)
+              Headlines ({filledH}/{HEADLINE_COUNT})
             </label>
             <FieldError name={`ad.${active.id}.headlines`} /><div className="gads-asset-rows">
               {ad.headlines.map((h, i) => (
@@ -1155,7 +1155,7 @@ function StepAds() {
                     maxLength={30}
                     label={`Headline ${i + 1}`}
                   />
-                  {ad.headlines.length > 3 && (
+                  {ad.headlines.length > HEADLINE_COUNT && (
                     <button
                       className="gads-icon-btn"
                       aria-label="Remove headline"
@@ -1171,7 +1171,7 @@ function StepAds() {
                 </div>
               ))}
             </div>
-            {ad.headlines.length < 15 && (
+            {ad.headlines.length < HEADLINE_COUNT && (
               <AddLink onClick={() => setAd({ headlines: [...ad.headlines, ""] })}>
                 Add headline
               </AddLink>
@@ -1179,7 +1179,7 @@ function StepAds() {
 
             <div className="gads-divider" />
             <label className="gads-label">
-              Descriptions ({filledD}/4 · aim for 3+)
+              Descriptions ({filledD}/{DESCRIPTION_COUNT})
             </label>
             <FieldError name={`ad.${active.id}.descriptions`} /><div className="gads-asset-rows">
               {ad.descriptions.map((d, i) => (
@@ -1192,7 +1192,7 @@ function StepAds() {
                     label={`Description ${i + 1}`}
                     rows={2}
                   />
-                  {ad.descriptions.length > 2 && (
+                  {ad.descriptions.length > DESCRIPTION_COUNT && (
                     <button
                       className="gads-icon-btn"
                       aria-label="Remove description"
@@ -1208,7 +1208,7 @@ function StepAds() {
                 </div>
               ))}
             </div>
-            {ad.descriptions.length < 4 && (
+            {ad.descriptions.length < DESCRIPTION_COUNT && (
               <AddLink
                 onClick={() => setAd({ descriptions: [...ad.descriptions, ""] })}
               >
