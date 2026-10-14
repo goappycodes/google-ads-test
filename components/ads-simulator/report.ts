@@ -3,7 +3,8 @@ import { campaignChecks } from "./flow";
 import { OBJECTIVES, BID_FOCUS_OPTIONS, plannerIdeas, trendValues, TREND_MONTHS } from "./data";
 import { campaignIssues } from "./validation";
 
-export const SUBMISSION_EMAIL = "madhu@nexisschool.com";
+export const SUBMISSION_EMAIL = process.env.NEXT_PUBLIC_SUBMISSION_EMAIL || "madhu@nexisschool.com";
+export const SUBMISSION_NAME = process.env.NEXT_PUBLIC_SUBMISSION_NAME || "Madhu";
 const escape = (value: unknown) => String(value ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 const yes = (value: boolean) => value ? "Yes" : "No";
 const rows = (items: [string, unknown][]) => `<table class="details"><tbody>${items.map(([key, value]) => `<tr><th>${escape(key)}</th><td>${escape(value || "—")}</td></tr>`).join("")}</tbody></table>`;
@@ -16,7 +17,7 @@ export function reportFilename(state: SimState) {
 
 export function submissionMailto(state: SimState) {
   const subject = `${state.student?.name || ""}_MidSem`;
-  const body = `Dear Madhu,\n\nPlease find my Google Search Ads practical report attached.\n\nName: ${state.student?.name || ""}\nCampaign: ${state.campaign.name}\n\nAttachment: ${reportFilename(state)}\n\nThank you.`;
+  const body = `Dear ${SUBMISSION_NAME},\n\nPlease find my Google Search Ads practical report attached.\n\nName: ${state.student?.name || ""}\nCampaign: ${state.campaign.name}\n\nAttachment: ${reportFilename(state)}\n\nThank you.`;
   return `mailto:${SUBMISSION_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 

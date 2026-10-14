@@ -62,7 +62,20 @@ locally bundled Google Sans / Roboto fonts. No external services are required.
 ## Deploy
 
 Any Next.js host works (e.g. Vercel). It's a standard Next.js app with no
-environment variables or backend.
+backend. Optional settings live in `.env.example` (copy it to `.env.local`, or
+set the same variables on your host):
+
+- `NEXT_PUBLIC_SUBMISSION_EMAIL` — where students email their report
+  (default `madhu@nexisschool.com`).
+- `NEXT_PUBLIC_SUBMISSION_NAME` — greeting name in the pre-filled email
+  (default `Madhu`).
+
+These are public build-time values; rebuild after changing them.
+
+The app never sends email itself and holds no email credentials. **Email
+submission** is a `mailto:` link that opens the student's own mail client with
+the recipient, subject and body filled in; the student attaches the HTML report
+and presses Send from their own account.
 
 ## Exam instructions and content protection
 
