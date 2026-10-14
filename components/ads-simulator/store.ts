@@ -115,6 +115,15 @@ export function loadState(): SimState {
   }
 }
 
+// Fit an older draft's headline/description list to the fixed count: drop empty
+// extras from the end and pad short lists. Filled extras stay for the student to remove.
+function fitList(list: unknown, count: number): string[] {
+  const out = Array.isArray(list) ? list.map(v => String(v ?? "")) : [];
+  for (let i = out.length - 1; i >= 0 && out.length > count; i--) if (!out[i].trim()) out.splice(i, 1);
+  while (out.length < count) out.push("");
+  return out;
+}
+
 export function upgradeNavigation(state: SimState): SimState {
   const currentState = { ...state };
   const currentCampaign = { ...state.campaign };
@@ -126,7 +135,9 @@ export function upgradeNavigation(state: SimState): SimState {
   return { ...currentState, version: STATE_VERSION, wizardVersion: 2,
     lastStep: Number.isFinite(step) ? Math.min(Math.max(step, 0), 5) : 0,
     buildSection: state.buildSection || (legacy && state.lastStep === 5 ? "ads" : legacy && state.lastStep === 6 ? "assets" : "keywords"),
-    campaign: { ...currentCampaign, budgetDaily: legacy && !state.campaign.budgetDaily && Number(state.campaign.budgetMonthly) > 0 ? (Number(state.campaign.budgetMonthly) / 30.4).toFixed(2) : state.campaign.budgetDaily },
+    campaign: { ...currentCampaign,
+      adGroups: (currentCampaign.adGroups || []).map(g => ({ ...g, ad: { ...g.ad, headlines: fitList(g.ad?.headlines, HEADLINE_COUNT), descriptions: fitList(g.ad?.descriptions, DESCRIPTION_COUNT) } })),
+      budgetDaily: legacy && !state.campaign.budgetDaily && Number(state.campaign.budgetMonthly) > 0 ? (Number(state.campaign.budgetMonthly) / 30.4).toFixed(2) : state.campaign.budgetDaily },
   };
 }
 
