@@ -11,7 +11,6 @@ export default function Guide({ onNavigate }: { onNavigate: Navigate }) {
   const { state, patch } = useSim();
   return <div className="gads-exam-handout">
     <h1 className="gads-page-title">Google Search Ads — 90-minute practical</h1>
-    <InlineNote variant="warn"><strong>No ad may guarantee a rank or result, or make a student feel bad about their result.</strong></InlineNote>
     <p className="gads-page-sub">This page is your complete exam handout. Read it before starting, and return to Exam guide whenever you need it.</p>
     <div className="gads-exam-facts"><span>90 minutes</span><span>One Search campaign</span><span>Individual setup and explanation</span><span>HTML report by email</span></div>
 
@@ -23,6 +22,7 @@ export default function Guide({ onNavigate }: { onNavigate: Navigate }) {
 
     <Card title="Your scenario and permitted facts">
       <InlineNote><span><strong>Scenario dates:</strong> assume it is the first week of April. The result dates and batch timing below belong to the scenario, regardless of the real date displayed by the clock.</span></InlineNote>
+      <InlineNote variant="warn"><strong>These students did not qualify in JEE this year. No ad may guarantee a rank or result, or make a student feel bad about their exam.</strong></InlineNote>
       <dl className="gads-brief-grid">
         <dt>Centre</dt><dd>{BRIEF.centre}</dd>
         <dt>Course and audience</dt><dd>{BRIEF.course}</dd>
@@ -59,7 +59,7 @@ export default function Guide({ onNavigate }: { onNavigate: Navigate }) {
     </Card>
 
     <Card title="Rules for this practical">
-      <ul><li>Use only the supplied scenario facts or claims you can verify on allen.in. Do not invent prices, ranks, results or promises.</li><li>No ad may guarantee a rank or result, or make a student feel bad about their result.</li><li>Use consistent research figures and explainable decisions. Work you cannot explain may be rejected during a spot check.</li><li>Type your own answers. Copy, cut, paste, text drag-and-drop and printing are disabled in the simulator. Do not photograph or share exam content.</li><li>The brief is watermarked and hides when the page loses focus. Select <strong>Resume exam</strong> to reveal it again.</li><li>Do not publish a campaign and do not add payment details. Nothing in this simulator serves ads or spends money.</li></ul>
+      <ul><li>Use only the supplied scenario facts or claims you can verify on allen.in. Do not invent prices, ranks, results or promises.</li><li>Your audience did not qualify in JEE this year. No ad may guarantee a rank or result, or make a student feel bad about their exam.</li><li>Use consistent research figures and explainable decisions. Work you cannot explain may be rejected during a spot check.</li><li>Type your own answers. Copy, cut, paste, text drag-and-drop and printing are disabled in the simulator. Do not photograph or share exam content.</li><li>The brief is watermarked and hides when the page loses focus. Select <strong>Resume exam</strong> to reveal it again.</li><li>Do not publish a campaign and do not add payment details. Nothing in this simulator serves ads or spends money.</li></ul>
     </Card>
 
     <Card title="Use the 90 minutes well">
